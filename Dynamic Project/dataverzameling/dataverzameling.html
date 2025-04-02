@@ -5,24 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Openbare Parkings in Brussel</title>
   <link rel="stylesheet" href="dataverzameling.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
 </head>
 <body>
   <header>
     <h1>Openbare Parkings in Brussel</h1>
   </header>
     <main>
-        <div>
-            <iframe 
-              src="https://bruxellesdata.opendatasoft.com/explore/embed/dataset/bruxelles_parkings_publics/map/?disjunctive.name_nl&disjunctive.commune_gemeente&sort=commune_gemeente&location=10,50.80116,4.16313&basemap=jawg.sunny&static=false&datasetcard=false&scrollWheelZoom=false" 
-              width="800" 
-              height="600" 
-              frameborder="0">
-            </iframe>
-        </div>
+        <section id="controls">
+            <input type="text" id="search-input" placeholder="Zoek parkeerplaats...">
+            <select id="type-filter">
+              <option value="all">Alle types</option>
+              <option value="Betalend">Betalend</option>
+              <option value="Gratis">Gratis</option>
+            </select>
+            <select id="sort-option">
+              <option value="default">Sorteer op</option>
+              <option value="capacity-asc">Capaciteit oplopend</option>
+              <option value="capacity-desc">Capaciteit aflopend</option>
+            </select>
+            <button id="search-btn">Zoeken</button>
+        </section>
+
+          <div id="map" style="height: 400px;"></div>
+
 
         <section id="filters">
             <input type="text" id="search" placeholder="Zoek op naam...">
-            <button id="search-btn">Zoeken</button>
+            <button id="srch-button">Zoeken</button>
         </section>
 
         <section id="parking-container">

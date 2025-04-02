@@ -2,28 +2,129 @@
 const parkingTable = document.querySelector("#parking-table tbody");
 const searchInput = document.querySelector("#search");
 const searchButton = document.querySelector("#search-btn");
+// Globale variabele om parkeerdata op te slaan
+let parkings = []; 
+
 
 // Gebruik van constanten en fetch om data op te halen
-const API_URL = "https://data.mobility.brussels/api/parkings";
+const API_URL = "https://opendata.brussels.be/api/records/1.0/search/?dataset=bruxelles_parkings_publics&rows=20";
 
 searchButton.addEventListener("click", () => {
   const searchQuery = searchInput.value.trim().toLowerCase();
   fetchParkingData(searchQuery);
 });
+  
 
-// Promises & Async/Await: Data ophalen
-async function fetchParkingData(query) {
-  try {
+// Maak de kaart aan
+const map = L.map("map").setView([50.8503, 4.3517], 12); // Coördinaten van Brussel
+
+// Voeg een basemap toe
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "© OpenStreetMap contributors",
+}).addTo(map);
+
+// Voeg een voorbeeldmarker toe (later vervangen door dynamische markers)
+L.marker([50.8503, 4.3517]).addTo(map).bindPopup("Brussel - Centrum");
+
+
+// Parkeergegevens ophalen
+async function fetchParkingData() {
     const response = await fetch(API_URL);
     const data = await response.json();
-    const filteredData = query ? data.filter(parking => parking.name.toLowerCase().includes(query)) : data;
-
-    // Data manipuleren en weergeven
-    displayParkingData(filteredData);
-  } catch (error) {
-    console.error("Fout bij ophalen data:", error);
-  }
+    const parkings = data.records;
+    updateMarkers(parkings); // Voeg markers toe bij het ophalen van data
 }
+
+  // Roep de functie aan om data op te halen en markers toe te voegen
+  fetchParkingData();
+
+  function clearMarkers() {
+    map.eachLayer(layer => {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
+   console.log(data); // Controleer wat de API retourneert
+
+  }
+  // Functie om markers dynamisch bij te werken op de kaart
+function updateMarkers(parkings) {
+    // Wis eerst alle bestaande markers van de kaart
+    map.eachLayer(layer => {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
+  
+    // Voeg nieuwe markers toe op basis van de gegeven data
+    parkings.forEach(parking => {
+      if (parking.fields.geo_point_2d) {
+        const [lat, lon] = parking.fields.geo_point_2d; // Haal coördinaten op
+        L.marker([lat, lon])
+          .addTo(map) // Voeg de marker toe aan de kaart
+          .bindPopup(`
+            <b>${parking.fields.name_nl || "Onbekend"}</b><br>
+            Adres: ${parking.fields.adres_ || "Geen adres"}.<br>
+            Capaciteit: ${parking.fields.capacity || "Onbekend"}<br>
+            Type: ${parking.fields.type || "Onbekend"}<br>
+            Status: ${parking.fields.status || "Onbekend"}
+          `);
+      }
+    });
+  }
+
+//Filter
+document.getElementById("type-filter").addEventListener("change", (e) => {
+    const selectedType = e.target.value;
+  
+    if (!parkings.length) {
+      console.error("Geen parkeerdata geladen.");
+      return;
+    }
+  
+    const filteredData = selectedType === "all"
+      ? parkings
+      : parkings.filter(parking => (parking.fields.type || "").toLowerCase() === selectedType.toLowerCase());
+  
+    updateMarkers(filteredData); // Markers bijwerken met gefilterde resultaten
+  });  
+  
+//Zoekfunctie
+document.getElementById("search-input").addEventListener("click", () => {
+    const query = document.getElementById("search-input").value.toLowerCase();
+  
+    if (!parkings.length) {
+      console.error("Geen parkeerdata geladen.");
+      return;
+    }
+  
+    const searchedData = parkings.filter(parking =>
+      (parking.fields.name_nl || "").toLowerCase().includes(query)
+    );
+  
+    updateMarkers(searchedData); // Markers bijwerken met zoekresultaten
+  });  
+
+//Sorteer  
+document.getElementById("sort-option").addEventListener("change", (e) => {
+    const sortOption = e.target.value;
+  
+    if (!parkings.length) {
+      console.error("Geen parkeerdata geladen.");
+      return;
+    }
+  
+    const sortedData = [...parkings].sort((a, b) => {
+      const capacityA = a.fields.capacity || 0;
+      const capacityB = b.fields.capacity || 0;
+  
+      if (sortOption === "capacity-asc") return capacityA - capacityB;
+      if (sortOption === "capacity-desc") return capacityB - capacityA;
+      return 0;
+    });
+  
+    updateMarkers(sortedData); // Markers bijwerken met gesorteerde resultaten
+  });  
 
 const parkingData = {
     "total_count": 28,
