@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Openbare Parkings in Brussel</title>
+  <link rel="stylesheet" href="dataverzameling.css">
+</head>
+<body>
+  <header>
+    <h1>Openbare Parkings in Brussel</h1>
+  </header>
+      <main>
+        <div>
+            <iframe 
+              src="https://bruxellesdata.opendatasoft.com/explore/embed/dataset/bruxelles_parkings_publics/map/?disjunctive.name_nl&disjunctive.commune_gemeente&sort=commune_gemeente&location=10,50.80116,4.16313&basemap=jawg.sunny&static=false&datasetcard=false&scrollWheelZoom=false" 
+              width="800" 
+              height="600" 
+              frameborder="0">
+            </iframe>
+        </div>
+        <section id="parking-container">
+          <!-- Dynamische parkeervakken worden hier toegevoegd -->
+        </section>
+        <section id="filters">
+            <input type="text" id="search" placeholder="Zoek op naam...">
+            <button id="search-btn">Zoeken</button>
+          </section>
+          <section id="data">
+            <table id="parking-table">
+              <thead>
+                <tr>
+                  <th>Naam</th>
+                  <th>Adres</th>
+                  <th>Postcode</th>
+                  <th>Capaciteit</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+      </main> 
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 Openbare Parkings</p>
+  </footer>
+ <script src="dataverzameling.mjs"></script>
+</body>
+</html>
