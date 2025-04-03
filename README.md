@@ -33,62 +33,62 @@ Hier is een overzicht van waar en hoe elke technisch vereiste is geïmplementeer
 
 1. DOM Manipulatie
 Elementen selecteren:
-*document.getElementById("search-input") (lijn: 36).
-*document.querySelector("header h1") (lijn: 83 in functie applyLanguage).
+*document.getElementById("search-input") (lijn: 66).
+*document.querySelector("header h1") (lijn: 214 in functie applyLanguage).
 Elementen manipuleren:
-*Het toevoegen van parkeerkaartjes in displayParkings() via insertAdjacentHTML() (lijn: 116).
+*Het toevoegen van parkeerkaartjes in displayParkings() via insertAdjacentHTML() (lijn: 127).
 Events aan elementen koppelen:
-*Klik event op de zoekknop: document.getElementById("search-btn").addEventListener("click") (lijn: 35).
+*Klik event op de zoekknop: document.getElementById("search-btn").addEventListener("click") (lijn: 65).
 
 2. Modern JavaScript
 Gebruik van constanten:
-*const API_URL om de API URL te bewaren .
-*const map om de kaart te initialiseren.
+*const API_URL om de API URL te bewaren (lijn: 5) .
+*const map om de kaart te initialiseren(lijn: 8).
 
 Template literals:
-*Gebruikt in de bindPopup() voor popup-informatie .
-*Ook in displayParkings() voor het genereren van kaartjes .
+*Gebruikt in de bindPopup() voor popup-informatie (lijn: 53).
 
 Iteratie over arrays:
-*data.forEach() in updateMarkers() om markers toe te voege).
+*data.forEach() in updateMarkers() om markers toe te voegen(lijn: 48).
 
 Array methodes:
-*parkings.filter() voor de zoekfunctie .
-*parkings.sort() voor de sorteerfunctie.
+*parkings.filter() voor de zoekfunctie (lijn: 73) .
+*parkings.sort() voor de sorteerfunctie(lijn: 89).
 
 Arrow functions:
-*Bij filtering: parking => (parking.fields.name_nl || "").toLowerCase().includes(query).
-*Conditional (ternary) operator:
-*In updateMarkers() om te controleren op lege gegevens: parking.fields.name_nl || "Onbekend".
+*Bij filtering: parking => (parking.fields.name_nl || "").toLowerCase().includes(query)(lijn: 73).
+
+Operator:
+*In updateMarkers() om te controleren op lege gegevens: parking.fields.name_nl || "Onbekend"(lijn: 54).
 
 Callback functions:
-*Eventlisteners zoals in addEventListener("click", (e) => {...}).
+*Eventlisteners zoals in addEventListener("click", (e) => {...})(lijn: 65).
 
 Promises:
-*Gebruikt bij fetchParkingData() voor het ophalen van data met fetch() .
+*Gebruikt bij fetchParkingData() voor het ophalen van data met fetch(lijn: 20) .
 
 Async & Await:
-*In fetchParkingData() om data op te halen .
-*In updateMarkers() en clearMarkers() om markers bij te werken .
+*In fetchParkingData() om data op te halen (lijn: 20).
+*In updateMarkers() en clearMarkers() om markers bij te werken(lijn: 41 en 45) .
 
 Observer API:
-*Eventlisteners observeren interacties, zoals met de donkere modus (document.getElementById("theme-switcher").addEventListener("change")) .
+*Eventlisteners observeren interacties, zoals met de donkere modus (document.getElementById("theme-switcher").addEventListener("change")) (lijn: 168) .
 
 3. Data & API
 *Fetch om data op te halen:
-*Geïmplementeerd in fetchParkingData() via fetch() en JSON verwerking.
+*Geïmplementeerd in fetchParkingData() via fetch() en JSON verwerking(lijn: 21 en 22).
 
 JSON manipuleren en weergeven:
-*Data wordt geparsed via response.json() .
-*JSON wordt verwerkt en weergegeven in displayParkings() .
+*Data wordt geparsed via response.json() (lijn: 22).
+*JSON wordt verwerkt en weergegeven in displayParkings() (lijn:141).
 
 4. Opslag & Validatie
 *Formulier validatie:
-*Controleer of parkings leeg is bij zoekopdrachten .
+*Controleer of parkings leeg is bij zoekopdrachten (lijn: 68).
 
 Gebruik van LocalStorage:
-*Opslag van favorieten in addToFavorites() met localStorage.setItem() .
-*Opslag van gebruikersvoorkeuren zoals donkere modus .
+*Opslag van favorieten in addToFavorites() met localStorage.setItem() (lijn: 139).
+*Opslag van gebruikersvoorkeuren zoals donkere modus (lijn: 154).
 
 5. Styling & Layout
 *Basis HTML layout:
