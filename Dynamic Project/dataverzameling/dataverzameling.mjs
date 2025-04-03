@@ -1,7 +1,6 @@
 // Globale variabele om parkeerdata op te slaan
 let parkings = []; 
 
-
 // Gebruik van constanten en fetch om data op te halen
 const API_URL = "https://opendata.brussels.be/api/records/1.0/search/?dataset=bruxelles_parkings_publics&rows=20";
 
@@ -217,6 +216,7 @@ function applyLanguage(language) {
 
 // Roep de functie aan om de data in te laden
 displayParkings(parkingData);
+
 
 
 
