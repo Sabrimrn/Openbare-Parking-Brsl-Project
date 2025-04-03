@@ -99,3 +99,5 @@ Basis CSS:
 
 Gebruiksvriendelijke elementen:
 *Favorietenknoppen hebben animaties bij hover (favorite-btn in CSS).
+
+
