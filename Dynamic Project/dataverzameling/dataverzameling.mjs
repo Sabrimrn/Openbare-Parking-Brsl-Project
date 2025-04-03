@@ -184,15 +184,21 @@ function applyLanguage(language) {
         title: "Openbare Parkings in Brussel",
         searchPlaceholder: "Zoek parkeerplaats...",
         sortOption: "Sorteer op",
+        searchButton: "Zoeken",
+        settingsHeader: "Voorkeur",
         darkModeLabel: "Donkere modus:",
         languageLabel: "Taal:",
+        favoriteButton: "Toevoegen aan favorieten",
       },
       en: {
         title: "Public Parking in Brussels",
         searchPlaceholder: "Search for a parking spot...",
         sortOption: "Sort by",
+        searchButton: "Search", 
+        settingsHeader: "Preferences",
         darkModeLabel: "Dark mode:",
         languageLabel: "Language:",
+        favoriteButton: "Add to favorites",
       },
     };
 
@@ -211,6 +217,17 @@ function applyLanguage(language) {
     document.querySelector("label[for='theme-switcher']").textContent = selectedTranslation.darkModeLabel;
     document.querySelector("label[for='language-select']").textContent = selectedTranslation.languageLabel;
 
+    // Update de tekst van de "Zoeken"-knop
+    document.getElementById("search-btn").textContent = selectedTranslation.searchButton;
+
+    // Update de tekst van de settings h2 ("Voorkeur")
+    document.querySelector("#settings h2").textContent = selectedTranslation.settingsHeader;
+
+    // Update alle "Toevoegen aan favorieten"-knoppen
+    document.querySelectorAll(".favorite-btn").forEach(button => {
+        button.textContent = selectedTranslation.favoriteButton;
+    });
+    
     console.log("Vertaling toegepast:", selectedTranslation); // Controleer de toegepaste vertaling
 }
 
