@@ -1,7 +1,3 @@
-// DOM manipulatie: Elementen selecteren
-const parkingTable = document.querySelector("#parking-table tbody");
-const searchInput = document.querySelector("#search-input");
-const searchButton = document.querySelector("#search-btn");
 // Globale variabele om parkeerdata op te slaan
 let parkings = []; 
 
@@ -30,8 +26,8 @@ async function fetchParkingData() {
     displayParkings({ results: parkings }); // Toon kaartjes onder de kaart
 }
 
-  // Roep de functie aan om data op te halen en markers toe te voegen
-  fetchParkingData();
+// Roep de functie aan om data op te halen en markers toe te voegen
+fetchParkingData();
 
 // Functie om markers te wissen
 async function clearMarkers() {
@@ -40,10 +36,10 @@ async function clearMarkers() {
         map.removeLayer(layer); // Verwijder alleen markers
       }
     });
-  }
+}
   
-  // Functie om markers dynamisch bij te werken op de kaart
-  async function updateMarkers(data) {
+// Functie om markers dynamisch bij te werken op de kaart
+async function updateMarkers(data) {
     console.log(data); // Controleer of data gevuld is
   
     // Wacht totdat alle markers zijn gewist
@@ -64,7 +60,7 @@ async function clearMarkers() {
           `);
       }
     });
-  }
+}
   
 //Zoekfunctie
 document.getElementById("search-btn").addEventListener("click", () => {
@@ -80,7 +76,7 @@ document.getElementById("search-btn").addEventListener("click", () => {
     );
     clearMarkers();
     updateMarkers(searchedData); // Markers bijwerken met zoekresultaten
-  });  
+});  
 
 //Sorteer  
 document.getElementById("sort-option").addEventListener("change", (e) => {
@@ -101,20 +97,20 @@ document.getElementById("sort-option").addEventListener("change", (e) => {
     });
 
     displayParkings({ results: sortedData }); // Update de kaartjes onder de kaart
-  }); 
+}); 
   
-  // Selecteer de container waar dynamische blokken komen
-  const parkingContainer = document.getElementById("parking-container");
+// Selecteer de container waar dynamische blokken komen
+const parkingContainer = document.getElementById("parking-container");
   
-  // Voeg dynamische parkeerkaartjes toe
-  function displayParkings(data) {
+// Voeg dynamische parkeerkaartjes toe
+function displayParkings(data) {
     console.log("displayParkings wordt aangeroepen!", data); // Controleer of deze wordt uitgevoerd
     parkingContainer.innerHTML = ""; // Maak de container eerst leeg
 
     if (!data.results || data.results.length === 0) {
         console.error("Geen resultaten om weer te geven.");
         return;
-      }
+    }
   
       data.results.forEach(parking => {
         const card = `
@@ -137,8 +133,8 @@ document.getElementById("sort-option").addEventListener("change", (e) => {
     button.addEventListener("click", (e) => {
       const parkingName = e.target.dataset.id;
       addToFavorites(parkingName);
+      });
     });
-  });
 }
 
 // Favorieten toevoegen aan LocalStorage
@@ -219,13 +215,8 @@ function applyLanguage(language) {
     console.log("Vertaling toegepast:", selectedTranslation); // Controleer de toegepaste vertaling
 }
 
-  
-  // Roep de functie aan om de data in te laden
-  displayParkings(parkingData);
-  
-
-// Selecteer het tbody-element in de HTML
-const tableBody = document.querySelector("#parking-table tbody");
+// Roep de functie aan om de data in te laden
+displayParkings(parkingData);
 
 
 

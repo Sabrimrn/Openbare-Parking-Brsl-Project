@@ -1,133 +1,183 @@
+/* Algemene instellingen */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-
-  body.dark-theme {
-    background-color: #121212;
-    color: #ffffff;
+    background-color: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
   }
   
+  /* Container die zich volledig aanpast aan de breedte */
+  main, header, footer {
+    width: 100%; /* Volledige breedte */
+    max-width: 100%; /* Maximaal breedte voor grote schermen */
+    margin: 0 auto; /* Centraal uitlijnen */
+    padding: 20px;
+    box-sizing: border-box; /* Zorg dat padding wordt meegerekend */
+  }
+  
+  /* Header styling */
   header {
-    text-align: center;
-    padding: 1rem;
     background-color: #007bff;
     color: white;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  #controls {
-    display: flex;
-    justify-content: space-around;
     padding: 20px;
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
-
-body.dark-theme header,
-body.dark-theme footer {
-  background-color: #1f1f1f;
-  color: #ffffff;
-}
-
-body.dark-theme #controls {
-  background-color: #1f1f1f;
-  color: #ffffff;
-  border: 1px solid #333333; 
-}
-
-body.dark-theme #settings {
-  background-color: #1f1f1f;
-  color: #ffffff;
-  border: 1px solid #333333;
-}
   
-  #controls input, #controls select, #controls button {
+  header h1 {
+    font-size: 2.5rem;
+    margin: 0;
+  }
+  
+  /* Responsieve kaart styling */
+  #map {
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    margin: 20px auto;
+    width: 100%; /* Volledige breedte */
+    height: 500px; /* Zorg voor een duidelijke hoogte */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styling voor controls */
+  #controls, #settings {
+    margin: 20px auto;
+    text-align: center;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  #controls select, #controls input, #controls button, #settings select, #settings input {
+    margin: 5px;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     font-size: 1rem;
+    transition: all 0.3s ease;
   }
   
+  #controls button {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #controls button:hover {
+    background-color: #0056b3;
+  }
+  
+  #settings h2 {
+    font-size: 1.2rem;
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  /* Parkeerkaart styling */
   #parking-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    padding: 20px;
+    margin: 20px auto;
+    padding: 10px;
   }
   
   .parking-card {
     background-color: white;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    text-align: left;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .parking-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Styling voor knoppen van favorieten */
+.favorite-btn {
+    background-color: #28a745; /* Frisse groene tint */
+    color: white; /* Tekstkleur */
+    border: none; /* Geen rand */
+    padding: 10px 15px;
+    border-radius: 50px; /* Mooie ronding */
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   }
   
-  .parking-card h3 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    color: #007bff;
+  .favorite-btn:hover {
+    background-color: #218838; /* Donkere groene tint bij hover */
+    transform: scale(1.05); /* Klein zoom-effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtiele schaduw bij hover */
   }
   
-  .parking-card p {
-    margin: 5px 0;
-    color: #555;
+  .favorite-btn:active {
+    background-color: #1e7e34; /* Nog donkerder groen bij actief */
+    transform: scale(0.95); /* Kleine indruk-effect */
+  }
+  
+  /* Responsieve styling voor kleinere schermen */
+  @media (max-width: 768px) {
+    .favorite-btn {
+      font-size: 0.9rem; /* Kleinere tekstgrootte */
+      padding: 8px 12px; /* Minder padding voor kleinere schermen */
+    }
+  }
+  
+  
+  /* Footer styling */
+  footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: 20px;
     font-size: 0.9rem;
   }
   
-  footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #007bff;
-    color: white;
-    margin-top: auto;
-  }
-  
+  /* Responsieve lay-out */
   @media (max-width: 768px) {
-    #parking-container {
-      grid-template-columns: 1fr; /* Eén kolom op kleinere schermen */
+    header h1 {
+      font-size: 1.8rem;
+    }
+  
+    #map {
+      height: 300px;
+    }
+  
+    #controls, #settings {
+      padding: 10px;
     }
   
     .parking-card {
       padding: 10px;
     }
-  
-    .parking-card p {
-      font-size: 0.8rem;
-    }
   }
   
-  iframe {
-    display: block;
-    margin: 20px auto;
-    border: none;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-}
- 
-.favorite-btn {
-    background-color: #007BFF;
-    color: #FFFFFF;
-    border: none;
-    padding: 5px 10px;
-    margin-top: 5px;
-    cursor: pointer;
+  /* Donkere modus */
+  body.dark-theme {
+    background-color: #121212;
+    color: #e0e0e0;
   }
-  .favorite-btn:hover {
-    background-color: #0056b3;
-  }
-
   
+  body.dark-theme header {
+    background-color: #1f1f1f;
+  }
+  
+  body.dark-theme #controls, body.dark-theme #settings, body.dark-theme .parking-card {
+    background-color: #222;
+    border-color: #444;
+    color: #e0e0e0;
+  }
+  
+  body.dark-theme footer {
+    background-color: #1f1f1f;
+  }
   
