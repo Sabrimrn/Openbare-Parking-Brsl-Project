@@ -15,11 +15,6 @@
     <main>
         <section id="controls">
             <input type="text" id="search-input" placeholder="Zoek parkeerplaats...">
-            <select id="type-filter">
-              <option value="all">Alle types</option>
-              <option value="Betalend">Betalend</option>
-              <option value="Gratis">Gratis</option>
-            </select>
             <select id="sort-option">
               <option value="default">Sorteer op</option>
               <option value="capacity-asc">Capaciteit oplopend</option>
@@ -30,11 +25,18 @@
 
           <div id="map" style="height: 400px;"></div>
 
+          <section id="settings">
+            <h2>Instellingen</h2>
+            <label for="theme-switcher">Donkere modus:</label>
+            <input type="checkbox" id="theme-switcher">
+            <label for="language-select">Taal:</label>
+            <select id="language-select">
+              <option value="nl">Nederlands</option>
+              <option value="en">Engels</option>
+            </select>
+          </section>
+          
 
-        <section id="filters">
-            <input type="text" id="search" placeholder="Zoek op naam...">
-            <button id="srch-button">Zoeken</button>
-        </section>
 
         <section id="parking-container">
           <!-- Dynamische parkeervakken worden hier toegevoegd -->

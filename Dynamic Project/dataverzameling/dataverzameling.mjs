@@ -1,6 +1,6 @@
 // DOM manipulatie: Elementen selecteren
 const parkingTable = document.querySelector("#parking-table tbody");
-const searchInput = document.querySelector("#search");
+const searchInput = document.querySelector("#search-input");
 const searchButton = document.querySelector("#search-btn");
 // Globale variabele om parkeerdata op te slaan
 let parkings = []; 
@@ -8,12 +8,6 @@ let parkings = [];
 
 // Gebruik van constanten en fetch om data op te halen
 const API_URL = "https://opendata.brussels.be/api/records/1.0/search/?dataset=bruxelles_parkings_publics&rows=20";
-
-searchButton.addEventListener("click", () => {
-  const searchQuery = searchInput.value.trim().toLowerCase();
-  fetchParkingData(searchQuery);
-});
-  
 
 // Maak de kaart aan
 const map = L.map("map").setView([50.8503, 4.3517], 12); // Coördinaten van Brussel
@@ -31,33 +25,32 @@ L.marker([50.8503, 4.3517]).addTo(map).bindPopup("Brussel - Centrum");
 async function fetchParkingData() {
     const response = await fetch(API_URL);
     const data = await response.json();
-    const parkings = data.records;
-    updateMarkers(parkings); // Voeg markers toe bij het ophalen van data
+    parkings = data.records;
+    await updateMarkers(parkings); // Voeg markers toe bij het ophalen van data
+    displayParkings({ results: parkings }); // Toon kaartjes onder de kaart
 }
 
   // Roep de functie aan om data op te halen en markers toe te voegen
   fetchParkingData();
 
-  function clearMarkers() {
+// Functie om markers te wissen
+async function clearMarkers() {
     map.eachLayer(layer => {
       if (layer instanceof L.Marker) {
-        map.removeLayer(layer);
+        map.removeLayer(layer); // Verwijder alleen markers
       }
     });
-   console.log(data); // Controleer wat de API retourneert
-
   }
+  
   // Functie om markers dynamisch bij te werken op de kaart
-function updateMarkers(parkings) {
-    // Wis eerst alle bestaande markers van de kaart
-    map.eachLayer(layer => {
-      if (layer instanceof L.Marker) {
-        map.removeLayer(layer);
-      }
-    });
+  async function updateMarkers(data) {
+    console.log(data); // Controleer of data gevuld is
+  
+    // Wacht totdat alle markers zijn gewist
+    await clearMarkers();
   
     // Voeg nieuwe markers toe op basis van de gegeven data
-    parkings.forEach(parking => {
+    data.forEach(parking => {
       if (parking.fields.geo_point_2d) {
         const [lat, lon] = parking.fields.geo_point_2d; // Haal coördinaten op
         L.marker([lat, lon])
@@ -72,25 +65,9 @@ function updateMarkers(parkings) {
       }
     });
   }
-
-//Filter
-document.getElementById("type-filter").addEventListener("change", (e) => {
-    const selectedType = e.target.value;
-  
-    if (!parkings.length) {
-      console.error("Geen parkeerdata geladen.");
-      return;
-    }
-  
-    const filteredData = selectedType === "all"
-      ? parkings
-      : parkings.filter(parking => (parking.fields.type || "").toLowerCase() === selectedType.toLowerCase());
-  
-    updateMarkers(filteredData); // Markers bijwerken met gefilterde resultaten
-  });  
   
 //Zoekfunctie
-document.getElementById("search-input").addEventListener("click", () => {
+document.getElementById("search-btn").addEventListener("click", () => {
     const query = document.getElementById("search-input").value.toLowerCase();
   
     if (!parkings.length) {
@@ -101,7 +78,7 @@ document.getElementById("search-input").addEventListener("click", () => {
     const searchedData = parkings.filter(parking =>
       (parking.fields.name_nl || "").toLowerCase().includes(query)
     );
-  
+    clearMarkers();
     updateMarkers(searchedData); // Markers bijwerken met zoekresultaten
   });  
 
@@ -122,148 +99,126 @@ document.getElementById("sort-option").addEventListener("change", (e) => {
       if (sortOption === "capacity-desc") return capacityB - capacityA;
       return 0;
     });
-  
-    updateMarkers(sortedData); // Markers bijwerken met gesorteerde resultaten
-  });  
 
-const parkingData = {
-    "total_count": 28,
-    "results": [
-      {
-        "name_fr": "Alhambra",
-        "name_nl": "Alhambra",
-        "adressee": "Boulevard Emile Jacqmain, 14 - 1000 Bruxelles",
-        "adres_": "Emile Jacqmainlaan, 14 - 1000 Brussel",
-        "geo_point_2d": { "lon": 4.3529899959104625, "lat": 50.852570002512216 },
-        "operator_fr": "Interparking",
-        "contact_mail": null,
-        "contact_phone": "+32 2 549 58 11",
-        "capacity": 191,
-        "disabledcapacity": 0,
-        "floors": 4,
-        "maxwidth": -999,
-        "maxheight": 2,
-        "commune_gemeente": "Bruxelles - Brussel"
-      },
-      {
-        "name_fr": "De Brouckère",
-        "name_nl": "De Brouckère",
-        "adressee": "Boulevard Anspach, 2 - 1000 Bruxelles",
-        "adres_": "Anspachlaan, 2 - 1000 Brussel",
-        "geo_point_2d": { "lon": 4.3521129959105656, "lat": 50.850916002512626 },
-        "operator_fr": "Interparking",
-        "contact_mail": null,
-        "contact_phone": "+32 2 549 58 11",
-        "capacity": 490,
-        "disabledcapacity": 0,
-        "floors": 3,
-        "maxwidth": -999,
-        "maxheight": 2,
-        "commune_gemeente": "Bruxelles - Brussel"
-      },
-      {
-        "name_fr":"Deux Portes",
-        "name_nl":"Deux Portes",
-        "adressee":"Boulevard de Waterloo, 2A - 1000 Bruxelles",
-        "adres_":"Waterloolaan, 2A - 1000 Brussel",
-        "geo_point_2d":{
-        "lon":4.361332995906981,
-        "lat":50.83860100251723
-        },
-        "operator_fr":"Interparking",
-        "contact_mail":null,
-        "contact_phone":"+32 2 549 58 11",
-        "capacity":929,
-        "disabledcapacity":32,
-        "floors":6,
-        "maxwidth":-999,
-        "maxheight":1.9,
-        "commune_gemeente":"Bruxelles - Brussel"
-        },
-        {
-        "name_fr":"Grand Place",
-        "name_nl":"Grote Markt",
-        "adressee":"Rue du Marche aux Herbes, 104 - 1000 Bruxelles",
-        "adres_":"Grasmarkt, 104 - 1000 Brussel",
-        "geo_point_2d":{
-        "lon":4.355165995909274,
-        "lat":50.84660200251419
-        },
-        "operator_fr":"Interparking",
-        "contact_mail":null,
-        "contact_phone":"+32 2 549 58 11",
-        "capacity":992,
-        "disabledcapacity":20,
-        "floors":8,
-        "maxwidth":2.41,
-        "maxheight":2,
-        "commune_gemeente":"Bruxelles - Brussel"
-        },
-        {
-        "name_fr":"P+R HEYSEL",
-        "name_nl":"P+R HEYSEL",
-        "adressee":"Avenue Impératrice Charlotte - 1020 Laeken",
-        "adres_":"Keizerin Charlottelaan - 1020 Laken",
-        "geo_point_2d":{
-        "lon":4.335512995919604,
-        "lat":50.89740100249731
-        },
-        "operator_fr":"Parking Brussels",
-        "contact_mail":null,
-        "contact_phone":null,
-        "capacity":100,
-        "disabledcapacity":-999,
-        "floors":-999,
-        "maxwidth":-999,
-        "maxheight":2.1,
-        "commune_gemeente":"Laeken - Laken"
-        },
-        {
-        "name_fr":"Pacheco",
-        "name_nl":"Pacheco",
-        "adressee":"Boulevard Pachéco, 7 - 1000 Bruxelles",
-        "adres_":"Pachecolaan, 7 - 1000 Brussel",
-        "geo_point_2d":{
-        "lon":4.362151995908143,
-        "lat":50.85153700251356
-        },
-        "operator_fr":"Q-Park Belgium",
-        "contact_mail":null,
-        "contact_phone":"+32 2 711 17 00",
-        "capacity":344,
-        "disabledcapacity":0,
-        "floors":1,
-        "maxwidth":2.5,
-        "maxheight":2.1,
-        "commune_gemeente":"Bruxelles - Brussel"
-        }
-    ]
-};
+    displayParkings({ results: sortedData }); // Update de kaartjes onder de kaart
+  }); 
   
   // Selecteer de container waar dynamische blokken komen
   const parkingContainer = document.getElementById("parking-container");
   
   // Voeg dynamische parkeerkaartjes toe
   function displayParkings(data) {
+    console.log("displayParkings wordt aangeroepen!", data); // Controleer of deze wordt uitgevoerd
     parkingContainer.innerHTML = ""; // Maak de container eerst leeg
+
+    if (!data.results || data.results.length === 0) {
+        console.error("Geen resultaten om weer te geven.");
+        return;
+      }
   
-    data.results.forEach(parking => {
-      const card = `
-        <div class="parking-card">
-          <h3>${parking.name_nl}</h3>
-          <p><strong>Adres:</strong> ${parking.adres_}</p>
-          <p><strong>Postcode:</strong> ${parking.postcode}</p>
-          <p><strong>Type:</strong> ${parking.type}</p>
-          <p><strong>Status:</strong> ${parking.status}</p>
-          <p><strong>Operator:</strong> ${parking.operator_fr || "Onbekend"}</p>
-          <p><strong>Contact:</strong> ${parking.contact_phone || "Geen contact"}</p>
-          <p><strong>Capaciteit:</strong> ${parking.capacity}</p>
-          <p><strong>Gemeente:</strong> ${parking.commune_gemeente}</p>
-        </div>
-      `;
-      parkingContainer.insertAdjacentHTML("beforeend", card);
+      data.results.forEach(parking => {
+        const card = `
+          <div class="parking-card">
+            <h3>${parking.fields?.name_nl || "Onbekend"}</h3>
+            <p><strong>Adres:</strong> ${parking.fields?.adres_ || "Geen adres"}</p>
+            <p><strong>Capaciteit:</strong> ${parking.fields?.capacity || "Onbekend"}</p>
+            <p><strong>Type:</strong> ${parking.fields?.type || "Onbekend"}</p>
+            <p><strong>Status:</strong> ${parking.fields?.status || "Onbekend"}</p>
+            <p><strong>Contact:</strong> ${parking.fields?.contact_phone || "Geen contact"}</p>
+            <p><strong>Gemeente:</strong> ${parking.fields?.commune_gemeente || "Geen gemeente"}</p>
+            <button class="favorite-btn" data-id="${parking.fields?.name_nl}">Toevoegen aan favorieten</button>
+          </div>
+        `;
+        parkingContainer.insertAdjacentHTML("beforeend", card);
+      });
+
+      // Eventlistener voor de favorietknoppen
+    document.querySelectorAll(".favorite-btn").forEach(button => {
+    button.addEventListener("click", (e) => {
+      const parkingName = e.target.dataset.id;
+      addToFavorites(parkingName);
     });
+  });
+}
+
+// Favorieten toevoegen aan LocalStorage
+function addToFavorites(parkingName) {
+  const favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (!favorites.includes(parkingName)) {
+    favorites.push(parkingName);
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+    alert(`${parkingName} toegevoegd aan favorieten!`);
+  } else {
+    alert(`${parkingName} staat al in je favorieten!`);
   }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Pagina volledig geladen!");
+  
+    // 1. Controleer en pas donkere modus toe
+    const darkMode = JSON.parse(localStorage.getItem("darkMode"));
+    if (darkMode) {
+      document.body.classList.add("dark-theme");
+    }
+  
+    // 2. Controleer en pas taalvoorkeur toe
+    const language = localStorage.getItem("language");
+    if (language) {
+      document.getElementById("language-select").value = language;
+      applyLanguage(language); // Zorg dat taal direct wordt toegepast
+    }
+  
+    // 3. Voeg eventlisteners toe
+    document.getElementById("theme-switcher").addEventListener("change", (e) => {
+      const isDarkMode = e.target.checked;
+      document.body.classList.toggle("dark-theme", isDarkMode);
+      localStorage.setItem("darkMode", isDarkMode);
+    });
+  
+    document.getElementById("language-select").addEventListener("change", (e) => {
+      const selectedLanguage = e.target.value;
+      localStorage.setItem("language", selectedLanguage);
+      applyLanguage(selectedLanguage);
+    });
+});
+  
+function applyLanguage(language) {
+    const translations = {
+      nl: {
+        title: "Openbare Parkings in Brussel",
+        searchPlaceholder: "Zoek parkeerplaats...",
+        sortOption: "Sorteer op",
+        darkModeLabel: "Donkere modus:",
+        languageLabel: "Taal:",
+      },
+      en: {
+        title: "Public Parking in Brussels",
+        searchPlaceholder: "Search for a parking spot...",
+        sortOption: "Sort by",
+        darkModeLabel: "Dark mode:",
+        languageLabel: "Language:",
+      },
+    };
+
+    // Haal de vertaling op gebaseerd op de taal
+    const selectedTranslation = translations[language];
+
+    if (!selectedTranslation) {
+        console.error("Geen vertaling gevonden voor de geselecteerde taal:", language);
+        return;
+    }
+
+    // Pas de vertaling toe op de interface
+    document.querySelector("header h1").textContent = selectedTranslation.title;
+    document.getElementById("search-input").placeholder = selectedTranslation.searchPlaceholder;
+    document.querySelector("#sort-option").options[0].textContent = selectedTranslation.sortOption;
+    document.querySelector("label[for='theme-switcher']").textContent = selectedTranslation.darkModeLabel;
+    document.querySelector("label[for='language-select']").textContent = selectedTranslation.languageLabel;
+
+    console.log("Vertaling toegepast:", selectedTranslation); // Controleer de toegepaste vertaling
+}
+
   
   // Roep de functie aan om de data in te laden
   displayParkings(parkingData);
