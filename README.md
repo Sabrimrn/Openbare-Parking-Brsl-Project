@@ -100,4 +100,53 @@ Basis CSS:
 Gebruiksvriendelijke elementen:
 *Favorietenknoppen hebben animaties bij hover (favorite-btn in CSS).
 
+Installatiehandleiding:
+Volg deze stappen om de applicatie op jouw computer te installeren en te gebruiken:
 
+Clone het repository Download de broncode van het project naar jouw computer door het volgende commando te gebruiken in je terminal:
+bash
+git clone [JOUW-REPOSITORY-LINK]
+Zorg ervoor dat je de link vervangt door de URL van jouw GitHub-repository.
+
+Navigeer naar het project Ga naar de map waar de bestanden zijn opgeslagen:
+
+bash
+cd [NAAM-VAN-JOUW-MAP]
+Open het project in een editor Gebruik een teksteditor zoals Visual Studio Code om de code te bekijken en aan te passen. Typ bijvoorbeeld:
+
+bash
+code .
+Start de applicatie Open het bestand index.html in jouw standaardbrowser door erop te dubbelklikken. Dit zal jouw applicatie starten.
+
+Screenshots:
+![Screenshot 2025-04-03 235435](https://github.com/user-attachments/assets/8b81daa0-7e81-4374-aeef-f31e8d38efba)
+![Screenshot 2025-04-03 235452](https://github.com/user-attachments/assets/2d6c1822-38da-4503-92a0-8a9c81a24c7a)
+![Screenshot 2025-04-03 235513](https://github.com/user-attachments/assets/d059693a-8192-44b4-a73e-298762f1dced)
+
+Gebruikte bronnen:
+*opendata.brussels API
+*Leaflet.js
+*HTML en CSS documentatie
+*Copilot (AI)
+*W3schools
+*Javascript.info
+*Google
+*Dynamic Web Modules
+
+Teamverdeling:
+Sabri:
+Dataverzameling & -weergave
+Interactiviteit
+CSS
+Mission statement
+Helft van User Stories
+Helft van Risico Analyse
+Product backlog 1 april
+
+Sorena:
+Personalisatie
+Gebruikerservaring
+HTML
+Helft van User Stories
+Helft van Risico Analyse
+Product backlog 2,3,4 april
