@@ -42,53 +42,53 @@ Events aan elementen koppelen:
 
 2. Modern JavaScript
 Gebruik van constanten:
-*const API_URL om de API URL te bewaren (lijn: 5).
-*const map om de kaart te initialiseren (lijn: 8).
+*const API_URL om de API URL te bewaren .
+*const map om de kaart te initialiseren.
 
 Template literals:
-*Gebruikt in de bindPopup() voor popup-informatie (lijn: 61).
-*Ook in displayParkings() voor het genereren van kaartjes (lijn: 119).
+*Gebruikt in de bindPopup() voor popup-informatie .
+*Ook in displayParkings() voor het genereren van kaartjes .
 
 Iteratie over arrays:
-*data.forEach() in updateMarkers() om markers toe te voegen (lijn: 57).
+*data.forEach() in updateMarkers() om markers toe te voege).
 
 Array methodes:
-*parkings.filter() voor de zoekfunctie (lijn: 37).
-*parkings.sort() voor de sorteerfunctie (lijn: 51).
+*parkings.filter() voor de zoekfunctie .
+*parkings.sort() voor de sorteerfunctie.
 
 Arrow functions:
-*Bij filtering: parking => (parking.fields.name_nl || "").toLowerCase().includes(query) (lijn: 38).
+*Bij filtering: parking => (parking.fields.name_nl || "").toLowerCase().includes(query).
 *Conditional (ternary) operator:
-*In updateMarkers() om te controleren op lege gegevens: parking.fields.name_nl || "Onbekend" (lijn: 64).
+*In updateMarkers() om te controleren op lege gegevens: parking.fields.name_nl || "Onbekend".
 
 Callback functions:
-*Eventlisteners zoals in addEventListener("click", (e) => {...}) (lijn: 123).
+*Eventlisteners zoals in addEventListener("click", (e) => {...}).
 
 Promises:
-*Gebruikt bij fetchParkingData() voor het ophalen van data met fetch() (lijn: 23).
+*Gebruikt bij fetchParkingData() voor het ophalen van data met fetch() .
 
 Async & Await:
-*In fetchParkingData() om data op te halen (lijn: 23).
-*In updateMarkers() en clearMarkers() om markers bij te werken (lijn: 51 en 43).
+*In fetchParkingData() om data op te halen .
+*In updateMarkers() en clearMarkers() om markers bij te werken .
 
 Observer API:
-*Eventlisteners observeren interacties, zoals met de donkere modus (document.getElementById("theme-switcher").addEventListener("change")) (lijn: 96).
+*Eventlisteners observeren interacties, zoals met de donkere modus (document.getElementById("theme-switcher").addEventListener("change")) .
 
 3. Data & API
 *Fetch om data op te halen:
-*Geïmplementeerd in fetchParkingData() via fetch() en JSON verwerking (lijn: 23).
+*Geïmplementeerd in fetchParkingData() via fetch() en JSON verwerking.
 
 JSON manipuleren en weergeven:
-*Data wordt geparsed via response.json() (lijn: 24).
-*JSON wordt verwerkt en weergegeven in displayParkings() (lijn: 119).
+*Data wordt geparsed via response.json() .
+*JSON wordt verwerkt en weergegeven in displayParkings() .
 
 4. Opslag & Validatie
 *Formulier validatie:
-*Controleer of parkings leeg is bij zoekopdrachten (lijn: 37).
+*Controleer of parkings leeg is bij zoekopdrachten .
 
 Gebruik van LocalStorage:
-*Opslag van favorieten in addToFavorites() met localStorage.setItem() (lijn: 140).
-*Opslag van gebruikersvoorkeuren zoals donkere modus (lijn: 97).
+*Opslag van favorieten in addToFavorites() met localStorage.setItem() .
+*Opslag van gebruikersvoorkeuren zoals donkere modus .
 
 5. Styling & Layout
 *Basis HTML layout:
