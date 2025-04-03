@@ -19,7 +19,7 @@ body {
   
   /* Header styling */
   header {
-    background-color: #007bff;
+    background-color: #005c3c;
     color: white;
     padding: 20px;
     text-align: center;
@@ -46,7 +46,7 @@ body {
     margin: 20px auto;
     text-align: center;
     padding: 15px;
-    background-color: #e9ecef;
+    background-color: #03b479;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
@@ -61,18 +61,18 @@ body {
   }
   
   #controls button {
-    background-color: #007bff;
+    background-color: #05767e;
     color: white;
     cursor: pointer;
   }
   
   #controls button:hover {
-    background-color: #0056b3;
+    background-color: #162a3f;
   }
   
   #settings h2 {
     font-size: 1.2rem;
-    color: #007bff;
+    color: #f8f9fa;
     margin-bottom: 10px;
   }
   
@@ -86,7 +86,7 @@ body {
   }
   
   .parking-card {
-    background-color: white;
+    background-color: rgb(181, 205, 202);
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 15px;
